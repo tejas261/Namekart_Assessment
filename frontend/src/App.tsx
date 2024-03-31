@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import linkedin from "./assets/linkedin-icon.png";
 import twitter from "./assets/twitter-icon.png";
 import fb from "./assets/facebook-icon.png";
 import insta from "./assets/instagram-icon.png";
@@ -59,7 +58,7 @@ const App: React.FC = () => {
   async function sendFbUrl(e: { preventDefault: () => void }) {
     e.preventDefault();
     setLoadingFb(true);
-    const res = await axios.post("https://namekart-assessment.onrender.com/fb", { fburl });
+    const res = await axios.post("https://namekart-backend.onrender.com/fb", { fburl });
     const data = await res.data;
     setFbData(data.data);
     console.log(fbdata);
@@ -69,7 +68,7 @@ const App: React.FC = () => {
   async function sendTwitterUrl(e: { preventDefault: () => void }) {
     e.preventDefault();
     setLoadingTwitter(true);
-    const res = await axios.post("https://namekart-assessment.onrender.com/twitter", {
+    const res = await axios.post("https://namekart-backend.onrender.com/twitter", {
       twitterurl,
     });
     const data = await res.data;
@@ -81,7 +80,7 @@ const App: React.FC = () => {
   async function sendInstaUrl(e: { preventDefault: () => void }) {
     e.preventDefault();
     setLoadingInsta(true);
-    const res = await axios.post("https://namekart-assessment.onrender.com/insta", {
+    const res = await axios.post("https://namekart-backend.onrender.com/insta", {
       instaurl,
     });
     const data = await res.data;
