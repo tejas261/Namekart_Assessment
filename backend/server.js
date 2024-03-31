@@ -8,11 +8,14 @@ const app = express();
 const db = pgp("postgres://snippets_078k_user:DWXAQ2NYiIeLeqgnsVi0tEp6PAMb6A1L@dpg-cntvi78l6cac73c8f4ug-a/snippets_078k");
 console.log("DB connected");
 
-app.use(cors());
+app.use(cors({
+  origin:"https://socioscraper.vercel.app",
+  credentials:true
+}));
 app.use(express.json());
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", "https://socioscraper.vercel.app");
   next();
 });
 
