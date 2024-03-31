@@ -5,7 +5,7 @@ import pgPromise from "pg-promise";
 
 const pgp = pgPromise();
 const app = express();
-const db = pgp("postgres://postgres:postgres@localhost:5432/socioscraper");
+const db = pgp("postgres://snippets_078k_user:DWXAQ2NYiIeLeqgnsVi0tEp6PAMb6A1L@dpg-cntvi78l6cac73c8f4ug-a/snippets_078k");
 console.log("DB connected");
 
 app.use(cors());
