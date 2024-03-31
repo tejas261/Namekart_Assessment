@@ -1,17 +1,23 @@
 import puppeteer from "puppeteer";
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 import pgPromise from "pg-promise";
 
+dotenv.config();
 const pgp = pgPromise();
 const app = express();
-const db = pgp("postgres://snippets_078k_user:DWXAQ2NYiIeLeqgnsVi0tEp6PAMb6A1L@dpg-cntvi78l6cac73c8f4ug-a/snippets_078k");
+const db = pgp(
+  "postgres://snippets_078k_user:DWXAQ2NYiIeLeqgnsVi0tEp6PAMb6A1L@dpg-cntvi78l6cac73c8f4ug-a/snippets_078k"
+);
 console.log("DB connected");
 
-app.use(cors({
-  origin:"https://socioscraper.vercel.app",
-  credentials:true
-}));
+app.use(
+  cors({
+    origin: "https://socioscraper.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -26,7 +32,17 @@ async function facebook(url) {
   if (exists) {
     return exists;
   } else {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--no-zygote",
+        "--single-process",
+      ],
+      executablePath: (process.env.NODE_ENV = "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath()),
+    });
     const page = await browser.newPage();
 
     try {
@@ -78,7 +94,17 @@ async function instagram(url) {
   if (exists) {
     return exists;
   } else {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--no-zygote",
+        "--single-process",
+      ],
+      executablePath: (process.env.NODE_ENV = "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath()),
+    });
     const page = await browser.newPage();
 
     try {
@@ -145,7 +171,17 @@ async function twitter(url) {
   if (exists) {
     return exists;
   } else {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--no-zygote",
+        "--single-process",
+      ],
+      executablePath: (process.env.NODE_ENV = "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath()),
+    });
     const page = await browser.newPage();
     try {
       console.log(`Navigating to URL: ${url}`);
@@ -239,17 +275,6 @@ app.post("/insta", async (req, res) => {
   try {
     const response = await instagram(instaurl);
     return res.status(200).json({ message: "Success", data: response });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: "Error occured!" });
-  }
-});
-
-app.post("/linkedin", async (req, res) => {
-  const { linkedinurl } = req.body;
-  try {
-    const data = await linkedin(linkedinurl);
-    return res.status(200).json({ data: data });
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Error occured!" });
