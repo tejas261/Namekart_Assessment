@@ -33,12 +33,6 @@ async function facebook(url) {
     return exists;
   } else {
     const browser = await puppeteer.launch({
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--no-zygote",
-        "--single-process",
-      ],
       executablePath: (process.env.NODE_ENV = "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath()),
@@ -95,12 +89,6 @@ async function instagram(url) {
     return exists;
   } else {
     const browser = await puppeteer.launch({
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--no-zygote",
-        "--single-process",
-      ],
       executablePath: (process.env.NODE_ENV = "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath()),
@@ -172,12 +160,6 @@ async function twitter(url) {
     return exists;
   } else {
     const browser = await puppeteer.launch({
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--no-zygote",
-        "--single-process",
-      ],
       executablePath: (process.env.NODE_ENV = "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath()),
